@@ -1,0 +1,218 @@
+/* ============================================
+   TYPOGRAPHY SYSTEM - Varied Fonts Per Section
+   ============================================ */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Font Variables */
+:root {
+    --font-header: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-cta: 'Montserrat', sans-serif;
+    --font-numbers: 'Space Grotesk', sans-serif;
+    --font-quotes: 'Merriweather', serif;
+    --font-code: 'JetBrains Mono', monospace;
+}
+
+/* Apply Typography Per Section */
+
+/* Headers - Poppins (Bold, Modern) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-section h1,
+.section-title {
+    font-family: var(--font-header);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Body Text - Inter (Clean, Readable) */
+body,
+p,
+.text-body,
+.card p,
+.description {
+    font-family: var(--font-body);
+    font-weight: 400;
+}
+
+/* CTAs & Buttons - Montserrat (Strong, Action) */
+.btn,
+button,
+.cta,
+.action-btn,
+.nav-label {
+    font-family: var(--font-cta);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+}
+
+/* Numbers & Stats - Space Grotesk (Technical, Precise) */
+.momentum-score-value,
+.stat-value,
+.number,
+.league-points,
+.streak-display,
+#momentum-value,
+#streak-value {
+    font-family: var(--font-numbers);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+/* Insights & Quotes - Merriweather (Elegant, Trustworthy) */
+.insight-message,
+.quote,
+.testimonial,
+.reel-text,
+.daily-action-description {
+    font-family: var(--font-quotes);
+    font-weight: 400;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* Code & Tags - JetBrains Mono (Monospace) */
+code,
+.badge,
+.tag,
+.code-snippet,
+.skill-tag {
+    font-family: var(--font-code);
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+/* Specific Component Overrides */
+
+/* Hero Section */
+.hero-section {
+    font-family: var(--font-header);
+}
+
+.hero-section .momentum-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+}
+
+/* Cards */
+.card h4 {
+    font-family: var(--font-header);
+    font-weight: 600;
+}
+
+.card .text-secondary {
+    font-family: var(--font-body);
+}
+
+/* Navigation */
+.nav-icon {
+    font-family: system-ui;
+}
+
+/* Reels */
+.reel-title {
+    font-family: var(--font-header);
+    font-weight: 800;
+}
+
+.reel-text {
+    font-family: var(--font-quotes);
+    font-style: normal;
+    line-height: 1.6;
+}
+
+/* League Display */
+.league-badge,
+.badge-bronze,
+.badge-silver,
+.badge-gold,
+.badge-diamond {
+    font-family: var(--font-cta);
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
+/* Onboarding */
+.onboarding-container h1 {
+    font-family: var(--font-header);
+    font-weight: 800;
+}
+
+.onboarding-container p {
+    font-family: var(--font-body);
+}
+
+/* Profile */
+.profile-name {
+    font-family: var(--font-header);
+    font-weight: 700;
+}
+
+.stat-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+}
+
+/* Swipe Mock */
+.question-text {
+    font-family: var(--font-body);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.option-text {
+    font-family: var(--font-body);
+    font-weight: 400;
+}
+
+.feedback-explanation {
+    font-family: var(--font-quotes);
+    font-style: italic;
+    line-height: 1.7;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .momentum-score-value {
+        font-size: 3rem;
+    }
+}
+
+/* Accessibility */
+.visually-hidden {
+    font-family: var(--font-body);
+}
+
+/* Print Styles */
+@media print {
+    * {
+        font-family: var(--font-body) !important;
+    }
+}
