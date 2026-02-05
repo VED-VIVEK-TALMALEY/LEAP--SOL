@@ -792,11 +792,75 @@ a:hover {
    RESPONSIVE DESIGN
    ============================================ */
 
-@media (max-width: 768px) {
+/* ============================================
+   RESPONSIVE DESIGN - All Screen Widths
+   ============================================ */
+
+/* Mobile First - Base styles above are for mobile */
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
   :root {
-    --font-size-4xl: 2rem;
-    --font-size-3xl: 1.75rem;
-    --font-size-2xl: 1.5rem;
+    --font-size-4xl: 1.5rem;
+    --font-size-3xl: 1.25rem;
+    --font-size-2xl: 1.125rem;
+    --font-size-xl: 1rem;
+  }
+
+  html {
+    font-size: 14px;
+  }
+
+  .container,
+  .container-narrow {
+    padding: 0 var(--space-sm);
+  }
+
+  .card {
+    padding: var(--space-md);
+  }
+
+  .btn {
+    font-size: 0.65rem;
+    padding: var(--space-xs) var(--space-md);
+  }
+
+  .nav-label {
+    font-size: 0.5rem;
+  }
+
+  .nav-icon {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Stack grid layouts on small screens */
+  .stats-grid,
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce spacing */
+  .gap-xl {
+    gap: var(--space-md);
+  }
+
+  .gap-lg {
+    gap: var(--space-sm);
+  }
+}
+
+/* Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  :root {
+    --font-size-4xl: 1.75rem;
+    --font-size-3xl: 1.5rem;
+    --font-size-2xl: 1.25rem;
+  }
+
+  html {
+    font-size: 15px;
   }
 
   .container {
@@ -806,14 +870,152 @@ a:hover {
   .card {
     padding: var(--space-md);
   }
+
+  /* 2-column grid for stats */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-@media (min-width: 769px) {
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --font-size-4xl: 2rem;
+    --font-size-3xl: 1.75rem;
+    --font-size-2xl: 1.5rem;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 900px;
+  }
+
+  /* Hide mobile navigation on tablet */
   .nav {
     display: none;
   }
 
-  /* Desktop sidebar navigation would go here */
+  /* 3-column grid for stats */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Adjust card layouts */
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop (> 1024px) */
+@media (min-width: 1025px) {
+  :root {
+    --font-size-4xl: 2.5rem;
+    --font-size-3xl: 2rem;
+    --font-size-2xl: 1.5rem;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 1200px;
+  }
+
+  /* Hide mobile navigation on desktop */
+  .nav {
+    display: none;
+  }
+
+  /* Full grid layouts */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Larger cards on desktop */
+  .card {
+    padding: var(--space-xl);
+  }
+
+  /* Better spacing */
+  .gap-xl {
+    gap: var(--space-2xl);
+  }
+}
+
+/* Ultra-wide screens (> 1440px) */
+@media (min-width: 1441px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .nav {
+    padding: var(--space-xs) 0;
+  }
+
+  .nav-icon {
+    font-size: var(--font-size-base);
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+}
+
+/* Print styles */
+@media print {
+
+  body::before,
+  body::after,
+  .nav,
+  .btn,
+  button {
+    display: none !important;
+  }
+
+  .card {
+    border: 2px solid #000;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  * {
+    font-family: var(--font-body) !important;
+    color: #000 !important;
+    background: #fff !important;
+  }
 }
 
 /* ============================================
@@ -836,4 +1038,68 @@ a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-bg-elevated);
+}
+
+/* ============================================
+   UTILITY CLASSES FOR RESPONSIVE
+   ============================================ */
+
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: block;
+  }
+
+  .hide-tablet {
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hide-desktop {
+    display: none;
+  }
+
+  .hide-tablet {
+    display: block;
+  }
+}
+
+.text-sm {
+  font-size: var(--font-size-sm);
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+}
+
+/* Grid utilities */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+@media (max-width: 767px) {
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
 }

@@ -16,6 +16,7 @@ import { createMomentumFeed } from './components/momentum-feed.js';
 import { createLoginPage } from './components/login-page.js';
 import { createRegisterPage } from './components/register-page.js';
 import { createCollegeDashboard } from './components/college-dashboard.js';
+import { createProfilePage } from './components/profile-page.js';
 
 // ============================================
 // ONBOARDING COMPONENT
@@ -239,122 +240,9 @@ function createPracticePage() {
 
 
 // ============================================
-// PROFILE PAGE
+// PROFILE PAGE - Now imported from components/profile-page.js
 // ============================================
 
-function createProfilePage() {
-  const user = state.get('user');
-  const momentum = state.get('momentum');
-  const leagues = state.get('leagues');
-  const swipeMock = state.get('swipeMock');
-
-  const container = document.createElement('div');
-  container.style.cssText = 'padding: var(--space-xl); padding-bottom: 100px;';
-
-  container.innerHTML = `
-    <div class="text-center mb-xl">
-      <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary)); display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto var(--space-md);">
-        ${user.name?.charAt(0).toUpperCase() || '?'}
-      </div>
-      <h2>${user.name || 'User'}</h2>
-      <p class="text-secondary">Target: IELTS ${user.targetScore || 7.5}</p>
-    </div>
-
-    <div class="card mb-md">
-      <h4 class="mb-md">📊 Your Stats</h4>
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md);">
-        <div>
-          <div class="text-accent" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
-            ${momentum.score || 0}
-          </div>
-          <div class="text-tertiary text-sm">Momentum Score</div>
-        </div>
-        <div>
-          <div class="text-accent" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
-            ${momentum.longestStreak || 0}
-          </div>
-          <div class="text-tertiary text-sm">Longest Streak</div>
-        </div>
-        <div>
-          <div class="text-accent" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
-            ${swipeMock.totalSwipes || 0}
-          </div>
-          <div class="text-tertiary text-sm">Total Swipes</div>
-        </div>
-        <div>
-          <div class="text-accent" style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
-            ${(swipeMock.mastered || []).length}
-          </div>
-          <div class="text-tertiary text-sm">Mastered</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-md">
-      <h4 class="mb-md">🏆 League Progress</h4>
-      <div class="flex justify-between items-center">
-        <div>
-          <div class="badge badge-${leagues.currentLeague}" style="font-size: var(--font-size-base);">
-            ${(leagues.currentLeague || 'bronze').toUpperCase()}
-          </div>
-        </div>
-        <div class="text-right">
-          <div class="text-accent" style="font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);">
-            ${leagues.leaguePoints || 0}
-          </div>
-          <div class="text-tertiary text-sm">Points</div>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-secondary" id="reset-btn" style="width: 100%;">
-      Reset Progress (Demo)
-    </button>
-
-    <nav class="nav">
-      <div class="nav-items">
-        <div class="nav-item" data-route="/">
-          <div class="nav-icon">🏠</div>
-          <div class="nav-label">Home</div>
-        </div>
-        <div class="nav-item" data-route="/practice">
-          <div class="nav-icon">📝</div>
-          <div class="nav-label">Practice</div>
-        </div>
-        <div class="nav-item" data-route="/league">
-          <div class="nav-icon">🏆</div>
-          <div class="nav-label">League</div>
-        </div>
-        <div class="nav-item" data-route="/colleges">
-          <div class="nav-icon">🎓</div>
-          <div class="nav-label">Colleges</div>
-        </div>
-        <div class="nav-item active" data-route="/profile">
-          <div class="nav-icon">👤</div>
-          <div class="nav-label">Profile</div>
-        </div>
-      </div>
-    </nav>
-  `;
-
-  setTimeout(() => {
-    container.querySelector('#reset-btn')?.addEventListener('click', () => {
-      if (confirm('Are you sure you want to reset all progress? This will clear all data.')) {
-        state.reset();
-        window.location.reload();
-      }
-    });
-
-    container.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        const route = e.currentTarget.dataset.route;
-        router.navigate(route);
-      });
-    });
-  }, 0);
-
-  return container;
-}
 
 // ============================================
 // ROUTE REGISTRATION
