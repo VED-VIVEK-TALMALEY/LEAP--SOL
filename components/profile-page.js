@@ -1,31 +1,39 @@
 // ============================================
-// PROFILE PAGE - Enhanced with Edit Mode
+// PROFILE PAGE - Enhanced with Edit Mode & Photo Upload
 // ============================================
 
 import { state } from '../js/state-manager.js';
 import { router } from '../js/router.js';
 import { showToast } from '../js/animations.js';
+import { createPhotoUpload } from './photo-upload.js';
+import { photoService } from '../js/photo-service.js';
 
 export function createProfilePage() {
-    const user = state.get('user');
-    const momentum = state.get('momentum');
-    const leagues = state.get('leagues');
-    const swipeMock = state.get('swipeMock');
+  const user = state.get('user');
+  const momentum = state.get('momentum');
+  const leagues = state.get('leagues');
+  const swipeMock = state.get('swipeMock');
 
-    let isEditMode = false;
+  let isEditMode = false;
 
-    const container = document.createElement('div');
-    container.className = 'profile-container';
-    container.style.cssText = 'padding: var(--space-xl); padding-bottom: 100px; max-width: 800px; margin: 0 auto;';
+  const container = document.createElement('div');
+  container.className = 'profile-container';
+  container.style.cssText = 'padding: var(--space-xl); padding-bottom: 100px; max-width: 800px; margin: 0 auto;';
 
-    function renderProfile() {
-        container.innerHTML = `
+  function renderProfile() {
+    container.innerHTML = `
       <div class="profile-header">
         <div class="profile-avatar-container">
-          <div class="profile-avatar" id="avatar">
-            ${user.avatar || user.name?.charAt(0).toUpperCase() || '🎮'}
-          </div>
-          ${isEditMode ? '<button class="btn-avatar-edit" id="change-avatar">📷</button>' : ''}
+          ${user.photoUrl ? `
+            <img src="${user.photoUrl}" alt="Profile" class="profile-avatar profile-photo" id="avatar" />
+          ` : `
+            <div class="profile-avatar" id="avatar">
+              ${user.avatar || user.name?.charAt(0).toUpperCase() || '🎮'}
+            </div>
+          `}
+          <button class="btn-avatar-edit" id="change-avatar" title="${user.photoUrl ? 'Change photo' : 'Upload photo'}">
+            📷
+          </button>
         </div>
         
         <div class="profile-info">
@@ -177,97 +185,120 @@ export function createProfilePage() {
       </nav>
     `;
 
-        attachEventListeners();
+    attachEventListeners();
+  }
+
+  function attachEventListeners() {
+    // Edit mode toggle
+    const editBtn = container.querySelector('#edit-profile-btn');
+    if (editBtn) {
+      editBtn.addEventListener('click', () => {
+        isEditMode = true;
+        renderProfile();
+      });
     }
 
-    function attachEventListeners() {
-        // Edit mode toggle
-        const editBtn = container.querySelector('#edit-profile-btn');
-        if (editBtn) {
-            editBtn.addEventListener('click', () => {
-                isEditMode = true;
-                renderProfile();
-            });
+    // Cancel edit
+    const cancelBtn = container.querySelector('#cancel-edit-btn');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        isEditMode = false;
+        renderProfile();
+      });
+    }
+
+    // Save profile
+    const saveBtn = container.querySelector('#save-profile-btn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const name = container.querySelector('#edit-name')?.value.trim();
+        const bio = container.querySelector('#edit-bio')?.value.trim();
+        const targetScore = parseFloat(container.querySelector('#edit-target-score')?.value);
+        const dailyCommitment = parseInt(container.querySelector('#edit-commitment')?.value);
+        const website = container.querySelector('#edit-website')?.value.trim();
+
+        if (!name) {
+          showToast('Please enter your name', 'error');
+          return;
         }
 
-        // Cancel edit
-        const cancelBtn = container.querySelector('#cancel-edit-btn');
-        if (cancelBtn) {
-            cancelBtn.addEventListener('click', () => {
-                isEditMode = false;
-                renderProfile();
-            });
-        }
-
-        // Save profile
-        const saveBtn = container.querySelector('#save-profile-btn');
-        if (saveBtn) {
-            saveBtn.addEventListener('click', () => {
-                const name = container.querySelector('#edit-name')?.value.trim();
-                const bio = container.querySelector('#edit-bio')?.value.trim();
-                const targetScore = parseFloat(container.querySelector('#edit-target-score')?.value);
-                const dailyCommitment = parseInt(container.querySelector('#edit-commitment')?.value);
-                const website = container.querySelector('#edit-website')?.value.trim();
-
-                if (!name) {
-                    showToast('Please enter your name', 'error');
-                    return;
-                }
-
-                // Update user state
-                state.update('user', {
-                    ...user,
-                    name,
-                    bio,
-                    targetScore,
-                    dailyCommitment,
-                    website
-                });
-
-                isEditMode = false;
-                renderProfile();
-                showToast('Profile updated! 🎉', 'success');
-            });
-        }
-
-        // Change avatar
-        const avatarBtn = container.querySelector('#change-avatar');
-        if (avatarBtn) {
-            avatarBtn.addEventListener('click', () => {
-                const avatars = ['🎮', '🍄', '⭐', '🏆', '🎯', '🚀', '💎', '👾', '🎪', '🎨'];
-                const currentAvatar = user.avatar || user.name?.charAt(0).toUpperCase();
-                const currentIndex = avatars.indexOf(currentAvatar);
-                const nextIndex = (currentIndex + 1) % avatars.length;
-
-                state.update('user', {
-                    ...user,
-                    avatar: avatars[nextIndex]
-                });
-
-                container.querySelector('#avatar').textContent = avatars[nextIndex];
-            });
-        }
-
-        // Reset progress
-        const resetBtn = container.querySelector('#reset-btn');
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                if (confirm('Are you sure you want to reset all progress? This will clear all data.')) {
-                    state.reset();
-                    window.location.reload();
-                }
-            });
-        }
-
-        // Navigation
-        container.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const route = e.currentTarget.dataset.route;
-                router.navigate(route);
-            });
+        // Update user state
+        state.update('user', {
+          ...user,
+          name,
+          bio,
+          targetScore,
+          dailyCommitment,
+          website
         });
+
+        isEditMode = false;
+        renderProfile();
+        showToast('Profile updated! 🎉', 'success');
+      });
     }
 
-    renderProfile();
-    return container;
+    // Change avatar / Upload photo
+    const avatarBtn = container.querySelector('#change-avatar');
+    if (avatarBtn) {
+      avatarBtn.addEventListener('click', () => {
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'photo-modal';
+        modal.innerHTML = `
+          <div class="photo-modal-content">
+            <button class="photo-modal-close" id="close-modal">✕</button>
+            <h3 style="margin-bottom: var(--space-lg); text-align: center;">Upload Profile Photo</h3>
+            <div id="photo-upload-container"></div>
+          </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Add photo upload component
+        const uploadContainer = modal.querySelector('#photo-upload-container');
+        const photoUpload = createPhotoUpload((photoUrl) => {
+          // Photo uploaded successfully
+          const updatedUser = state.get('user');
+          renderProfile();
+          document.body.removeChild(modal);
+        });
+        uploadContainer.appendChild(photoUpload);
+
+        // Close modal
+        modal.querySelector('#close-modal').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
+      });
+    }
+
+    // Reset progress
+    const resetBtn = container.querySelector('#reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to reset all progress? This will clear all data.')) {
+          state.reset();
+          window.location.reload();
+        }
+      });
+    }
+
+    // Navigation
+    container.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const route = e.currentTarget.dataset.route;
+        router.navigate(route);
+      });
+    });
+  }
+
+  renderProfile();
+  return container;
 }

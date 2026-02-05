@@ -10,6 +10,7 @@ import { eventBus } from './js/event-bus.js';
 import { authService } from './js/auth-service.js';
 import { ParticleSystem, createConfetti, createRipple, showToast } from './js/animations.js';
 import { createHomePage } from './components/home-page.js';
+import { createDashboardPage } from './components/dashboard-page.js';
 import { createLeaguePage } from './components/league-page.js';
 import { createSwipeMock } from './components/swipe-mock.js';
 import { createMomentumFeed } from './components/momentum-feed.js';
