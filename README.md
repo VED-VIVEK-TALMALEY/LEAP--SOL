@@ -184,6 +184,15 @@
 - [x] Streak tracking
 - [x] Retro pixel art UI
 
+### Phase 1.5: Enhanced Features ✅ (Complete)
+
+- [x] **Notification System** - Browser notifications for streaks, achievements, rivals
+- [x] **Achievement Badges** - 18 achievements across 5 categories (practice, streak, league, mastery, special)
+- [x] **Daily Challenges** - 5 daily challenges with momentum & coin rewards
+- [x] **Pomodoro Timer** - 25/5 minute work/break cycles with momentum rewards
+- [x] **Neumorphic Accents** - Subtle modern depth on cards while maintaining retro theme
+- [x] **Sound Effects** - 8-bit retro sounds (correct, incorrect, level up, achievement, etc.)
+
 ### Phase 2: Social Ecosystem (In Progress)
 
 - [ ] Rivals system (silent social pressure)
