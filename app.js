@@ -166,11 +166,14 @@ function createOnboarding() {
     });
   }, 0);
 
-  function createPracticePage() {
-    const container = document.createElement('div');
-    container.style.cssText = 'padding: var(--space-xl); padding-bottom: 100px;';
+  return container;
+}
 
-    container.innerHTML = `
+function createPracticePage() {
+  const container = document.createElement('div');
+  container.style.cssText = 'padding: var(--space-xl); padding-bottom: 100px;';
+
+  container.innerHTML = `
     <h2 class="mb-lg">Practice Sessions</h2>
     
     <div class="card mb-md card-interactive" id="swipe-2min">
@@ -214,139 +217,139 @@ function createOnboarding() {
     </nav>
   `;
 
-    setTimeout(() => {
-      container.querySelector('#swipe-2min')?.addEventListener('click', () => router.navigate('/swipe-mock/2min'));
-      container.querySelector('#swipe-5min')?.addEventListener('click', () => router.navigate('/swipe-mock/5min'));
-      container.querySelector('#swipe-10min')?.addEventListener('click', () => router.navigate('/swipe-mock/10min'));
+  setTimeout(() => {
+    container.querySelector('#swipe-2min')?.addEventListener('click', () => router.navigate('/swipe-mock/2min'));
+    container.querySelector('#swipe-5min')?.addEventListener('click', () => router.navigate('/swipe-mock/5min'));
+    container.querySelector('#swipe-10min')?.addEventListener('click', () => router.navigate('/swipe-mock/10min'));
 
-      container.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-          const route = e.currentTarget.dataset.route;
-          router.navigate(route);
-        });
+    container.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const route = e.currentTarget.dataset.route;
+        router.navigate(route);
       });
-    }, 0);
+    });
+  }, 0);
 
-    return container;
-  }
-
-
-  // ============================================
-  // PROFILE PAGE - Now imported from components/profile-page.js
-  // ============================================
+  return container;
+}
 
 
-  // ============================================
-  // ROUTE REGISTRATION
-  // ============================================
+// ============================================
+// PROFILE PAGE - Now imported from components/profile-page.js
+// ============================================
 
-  function registerRoutes() {
-    router.setBeforeNavigate((path) => {
-      const publicRoutes = ['/login', '/register'];
-      if (publicRoutes.includes(path)) {
-        return true;
-      }
 
-      if (!authService.isOffline() && !authService.isAuthenticated()) {
-        router.navigate('/login', false);
-        return false;
-      }
+// ============================================
+// ROUTE REGISTRATION
+// ============================================
 
-      const onboardingComplete = state.get('user.onboardingComplete');
-      if (!onboardingComplete && path !== '/onboarding') {
-        router.navigate('/onboarding', false);
-        return false;
-      }
-
+function registerRoutes() {
+  router.setBeforeNavigate((path) => {
+    const publicRoutes = ['/login', '/register'];
+    if (publicRoutes.includes(path)) {
       return true;
-    });
-
-    router.register('/login', createLoginPage);
-    router.register('/register', createRegisterPage);
-    router.register('/', createHomePage);
-    router.register('/onboarding', createOnboarding);
-    router.register('/practice', createPracticePage);
-    router.register('/feed', createMomentumFeed);
-    router.register('/league', createLeaguePage);
-    router.register('/colleges', createCollegeDashboard);
-    router.register('/profile', createProfilePage);
-    router.register('/rivals', createRivalsPage);
-    router.register('/creators', createCreatorFeed);
-    router.register('/alumni', createAlumniConnect);
-    router.register('/tracker', createApplicationTracker);
-    router.register('/academic-profile', createAcademicProfile);
-    router.register('/college-search', createCollegeSearch);
-
-    router.register('/swipe-mock/2min', () => createSwipeMock('2min'));
-    router.register('/swipe-mock/5min', () => createSwipeMock('5min'));
-    router.register('/swipe-mock/10min', () => createSwipeMock('10min'));
-  }
-
-  let appInitialized = false;
-
-  function initializeApp() {
-    // Prevent multiple initializations
-    if (appInitialized) {
-      console.warn('App already initialized, skipping...');
-      return;
     }
-    appInitialized = true;
 
-    console.log('🚀 XLR8 - Study Abroad Operating System');
+    if (!authService.isOffline() && !authService.isAuthenticated()) {
+      router.navigate('/login', false);
+      return false;
+    }
 
-    // Initialize particle system
-    new ParticleSystem(document.body);
+    const onboardingComplete = state.get('user.onboardingComplete');
+    if (!onboardingComplete && path !== '/onboarding') {
+      router.navigate('/onboarding', false);
+      return false;
+    }
 
-    // Register routes
-    registerRoutes();
+    return true;
+  });
 
-    // Initialize engines
-    momentumEngine.initializeEngine();
+  router.register('/login', createLoginPage);
+  router.register('/register', createRegisterPage);
+  router.register('/', createHomePage);
+  router.register('/onboarding', createOnboarding);
+  router.register('/practice', createPracticePage);
+  router.register('/feed', createMomentumFeed);
+  router.register('/league', createLeaguePage);
+  router.register('/colleges', createCollegeDashboard);
+  router.register('/profile', createProfilePage);
+  router.register('/rivals', createRivalsPage);
+  router.register('/creators', createCreatorFeed);
+  router.register('/alumni', createAlumniConnect);
+  router.register('/tracker', createApplicationTracker);
+  router.register('/academic-profile', createAcademicProfile);
+  router.register('/college-search', createCollegeSearch);
 
-    // Set up event listeners
-    eventBus.on('momentum:updated', (data) => {
-      console.log('Momentum updated:', data);
-      showToast(`Momentum updated: ${data.score}`, 'success');
-    });
+  router.register('/swipe-mock/2min', () => createSwipeMock('2min'));
+  router.register('/swipe-mock/5min', () => createSwipeMock('5min'));
+  router.register('/swipe-mock/10min', () => createSwipeMock('10min'));
+}
 
-    eventBus.on('league:changed', (data) => {
-      console.log('League changed:', data);
-      if (data.promoted) {
-        createConfetti(document.body);
-        showToast(`Promoted to ${data.newLeague.toUpperCase()} League! 🎉`, 'success');
-      }
-    });
+let appInitialized = false;
 
-    eventBus.on('session:completed', (data) => {
+function initializeApp() {
+  // Prevent multiple initializations
+  if (appInitialized) {
+    console.warn('App already initialized, skipping...');
+    return;
+  }
+  appInitialized = true;
+
+  console.log('🚀 XLR8 - Study Abroad Operating System');
+
+  // Initialize particle system
+  new ParticleSystem(document.body);
+
+  // Register routes
+  registerRoutes();
+
+  // Initialize engines
+  momentumEngine.initializeEngine();
+
+  // Set up event listeners
+  eventBus.on('momentum:updated', (data) => {
+    console.log('Momentum updated:', data);
+    showToast(`Momentum updated: ${data.score}`, 'success');
+  });
+
+  eventBus.on('league:changed', (data) => {
+    console.log('League changed:', data);
+    if (data.promoted) {
       createConfetti(document.body);
-    });
-
-    // Add ripple effect to all buttons
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.btn, .card-interactive, .quick-action-btn')) {
-        const element = e.target.closest('.btn, .card-interactive, .quick-action-btn');
-        createRipple(e, element);
-      }
-    });
-
-    let initialRoute = '/';
-
-    if (authService.isOffline()) {
-      const onboardingComplete = state.get('user.onboardingComplete');
-      initialRoute = onboardingComplete ? '/' : '/onboarding';
-    } else if (!authService.isAuthenticated()) {
-      initialRoute = '/login';
-    } else {
-      const onboardingComplete = state.get('user.onboardingComplete');
-      initialRoute = onboardingComplete ? '/' : '/onboarding';
+      showToast(`Promoted to ${data.newLeague.toUpperCase()} League! 🎉`, 'success');
     }
+  });
 
-    router.navigate(initialRoute);
-  }
+  eventBus.on('session:completed', (data) => {
+    createConfetti(document.body);
+  });
 
-  // Start the app when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
+  // Add ripple effect to all buttons
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.btn, .card-interactive, .quick-action-btn')) {
+      const element = e.target.closest('.btn, .card-interactive, .quick-action-btn');
+      createRipple(e, element);
+    }
+  });
+
+  let initialRoute = '/';
+
+  if (authService.isOffline()) {
+    const onboardingComplete = state.get('user.onboardingComplete');
+    initialRoute = onboardingComplete ? '/' : '/onboarding';
+  } else if (!authService.isAuthenticated()) {
+    initialRoute = '/login';
   } else {
-    initializeApp();
+    const onboardingComplete = state.get('user.onboardingComplete');
+    initialRoute = onboardingComplete ? '/' : '/onboarding';
   }
+
+  router.navigate(initialRoute);
+}
+
+// Start the app when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+  initializeApp();
+}
