@@ -99,12 +99,44 @@ html {
 
 body {
   font-family: 'Press Start 2P', monospace, system-ui;
-  background: var(--color-bg-primary);
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 50%, #16213e 100%);
+  background-attachment: fixed;
   color: var(--color-text-primary);
   line-height: 1.8;
+  min-height: 100vh;
   overflow-x: hidden;
   position: relative;
   image-rendering: pixelated;
+}
+
+/* Dark blur overlay with pixel pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 3px),
+    repeating-linear-gradient(90deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 3px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* Ensure content appears above overlay */
+#app {
+  position: relative;
+  z-index: 1;
 }
 
 /* Retro pixel art background pattern */
