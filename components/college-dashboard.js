@@ -1,5 +1,6 @@
 import { state } from '../js/state-manager.js';
 import { router } from '../js/router.js';
+import { collegeDataService } from '../js/college-data-service.js';
 import { collegeDatabase, getCoursesMatchingIELTS, getUpcomingDeadlines } from '../data/college-database.js';
 
 export function createCollegeDashboard() {
