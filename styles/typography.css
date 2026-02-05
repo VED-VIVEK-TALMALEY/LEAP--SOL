@@ -2,27 +2,28 @@
    TYPOGRAPHY SYSTEM - Varied Fonts Per Section
    ============================================ */
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Import Retro Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-/* Font Variables */
+/* Font Variables - Retro Pixelated Theme */
 :root {
-    --font-header: 'Poppins', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-cta: 'Montserrat', sans-serif;
-    --font-numbers: 'Space Grotesk', sans-serif;
-    --font-quotes: 'Merriweather', serif;
-    --font-code: 'JetBrains Mono', monospace;
+    --font-header: 'Rye', 'Press Start 2P', cursive, monospace;
+    --font-body: 'Press Start 2P', monospace, system-ui;
+    --font-cta: 'Rye', 'Press Start 2P', cursive;
+    --font-numbers: 'Press Start 2P', monospace;
+    --font-quotes: 'Rye', cursive;
+    --font-code: 'Press Start 2P', monospace;
+
+    /* Pixel-perfect rendering */
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
 }
 
 /* Apply Typography Per Section */
 
-/* Headers - Poppins (Bold, Modern) */
+/* Headers - Rye (Retro, Pixelated) */
 h1,
 h2,
 h3,
@@ -32,11 +33,17 @@ h6,
 .hero-section h1,
 .section-title {
     font-family: var(--font-header);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-shadow:
+        3px 3px 0px rgba(0, 0, 0, 0.8),
+        -1px -1px 0px rgba(255, 255, 255, 0.2);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }
 
-/* Body Text - Inter (Clean, Readable) */
+/* Body Text - Press Start 2P (Pixelated, Retro) */
 body,
 p,
 .text-body,
@@ -44,19 +51,24 @@ p,
 .description {
     font-family: var(--font-body);
     font-weight: 400;
+    font-size: 0.7rem;
+    line-height: 1.8;
+    image-rendering: pixelated;
 }
 
-/* CTAs & Buttons - Montserrat (Strong, Action) */
+/* CTAs & Buttons - Rye (Retro, Bold) */
 .btn,
 button,
 .cta,
 .action-btn,
 .nav-label {
     font-family: var(--font-cta);
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+    image-rendering: pixelated;
 }
 
 /* Numbers & Stats - Space Grotesk (Technical, Precise) */

@@ -8,21 +8,53 @@
     align-items: center;
     justify-content: center;
     padding: var(--space-xl);
-    background: linear-gradient(135deg,
-            rgba(99, 102, 241, 0.1) 0%,
-            rgba(139, 92, 246, 0.1) 100%);
+    background: var(--color-bg-primary);
+    position: relative;
+}
+
+.auth-container::before {
+    content: '🍄';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 3rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.auth-container::after {
+    content: '⭐';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 3rem;
+    animation: float 3s ease-in-out infinite 1.5s;
 }
 
 .auth-card {
     width: 100%;
     max-width: 450px;
-    background: rgba(26, 26, 40, 0.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-bg-secondary);
+    border: var(--border-pixel);
     border-radius: var(--radius-xl);
     padding: var(--space-2xl);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-xl);
     animation: fadeIn 0.5s ease;
+    position: relative;
+    image-rendering: pixelated;
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    height: 8px;
+    background: repeating-linear-gradient(90deg,
+            var(--color-accent-warning) 0px,
+            var(--color-accent-warning) 16px,
+            var(--color-accent-primary) 16px,
+            var(--color-accent-primary) 32px);
 }
 
 .auth-header {
@@ -34,15 +66,17 @@
     font-size: 4rem;
     margin-bottom: var(--space-md);
     animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.8));
 }
 
 .auth-header h1 {
     font-family: var(--font-header);
     font-size: var(--font-size-3xl);
     margin-bottom: var(--space-sm);
-    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-text-secondary);
+    text-shadow:
+        4px 4px 0px rgba(0, 0, 0, 0.8),
+        -1px -1px 0px rgba(255, 255, 255, 0.2);
 }
 
 .auth-form {
@@ -69,21 +103,22 @@
 .form-group input,
 .form-group select {
     padding: var(--space-md);
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-bg-tertiary);
+    border: var(--border-pixel);
     border-radius: var(--radius-md);
     color: var(--color-text-primary);
-    font-size: var(--font-size-base);
-    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-family: 'Press Start 2P', monospace;
     transition: all var(--transition-base);
+    image-rendering: pixelated;
 }
 
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
-    border-color: var(--color-accent-primary);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: var(--color-accent-warning);
+    background: var(--color-bg-elevated);
+    box-shadow: 4px 4px 0px rgba(255, 170, 0, 0.5);
 }
 
 .commitment-options {
@@ -98,23 +133,26 @@
     align-items: center;
     gap: var(--space-xs);
     padding: var(--space-md);
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-bg-tertiary);
+    border: var(--border-pixel);
     border-radius: var(--radius-md);
     color: var(--color-text-primary);
     cursor: pointer;
     transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
 }
 
 .commitment-option:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--color-bg-elevated);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.7);
 }
 
 .commitment-option.active {
-    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
-    border-color: transparent;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    background: var(--color-accent-primary);
+    border-color: #8b0000;
+    box-shadow: var(--shadow-md);
+    color: white;
 }
 
 .commitment-time {
