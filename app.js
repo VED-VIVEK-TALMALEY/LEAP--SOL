@@ -18,6 +18,11 @@ import { createLoginPage } from './components/login-page.js';
 import { createRegisterPage } from './components/register-page.js';
 import { createCollegeDashboard } from './components/college-dashboard.js';
 import { createProfilePage } from './components/profile-page.js';
+import { createRivalsPage } from './components/rivals-page.js';
+import { createCreatorFeed } from './components/creator-feed.js';
+import { createAlumniConnect } from './components/alumni-connect.js';
+import { createApplicationTracker } from './components/application-tracker.js';
+import { createAcademicProfile } from './components/academic-profile.js';
 
 // ============================================
 // ONBOARDING COMPONENT
@@ -39,7 +44,7 @@ function createOnboarding() {
   container.innerHTML = `
     <div style="max-width: 500px;">
       <div style="font-size: 5rem; margin-bottom: var(--space-xl);">🚀</div>
-      <h1 style="margin-bottom: var(--space-md);">Welcome to LEAP</h1>
+      <h1 style="margin-bottom: var(--space-md);">Welcome to XLR8</h1>
       <p class="text-secondary mb-xl">
         Your Study Abroad Operating System. Build daily IELTS habits, track progress, and connect with universities.
       </p>
@@ -280,6 +285,19 @@ function registerRoutes() {
   router.register('/colleges', createCollegeDashboard);
   router.register('/profile', createProfilePage);
 
+  // Phase 2: Social Ecosystem
+  router.register('/rivals', createRivalsPage);
+
+  // Phase 3: Creator & Alumni
+  router.register('/creators', createCreatorFeed);
+  router.register('/alumni', createAlumniConnect);
+
+  // Phase 4: Institution Integration
+  router.register('/tracker', createApplicationTracker);
+
+  // Phase 5: Academic Profile
+  router.register('/academic-profile', createAcademicProfile);
+
   router.register('/swipe-mock/2min', () => createSwipeMock('2min'));
   router.register('/swipe-mock/5min', () => createSwipeMock('5min'));
   router.register('/swipe-mock/10min', () => createSwipeMock('10min'));
@@ -299,7 +317,7 @@ function initializeApp() {
   }
   appInitialized = true;
 
-  console.log('🚀 LEAP - Study Abroad Operating System');
+  console.log('🚀 XLR8 - Study Abroad Operating System');
 
   // Initialize particle system
   new ParticleSystem(document.body);

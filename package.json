@@ -1,8 +1,9 @@
 {
-  "name": "leap-sol",
+  "name": "xlr8-ielts",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
+  "description": "XLR8 - Accelerate Your IELTS Journey with Gamified Learning",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

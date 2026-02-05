@@ -1,0 +1,249 @@
+/* ============================================
+   ACADEMIC PROFILE STYLES - Phase 5
+   ============================================ */
+
+.academic-profile {
+    min-height: 100vh;
+}
+
+.profile-header {
+    overflow: hidden;
+    padding: 0;
+}
+
+.profile-cover {
+    position: relative;
+}
+
+.profile-info {
+    position: relative;
+}
+
+.profile-avatar {
+    transition: transform var(--transition-base);
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+}
+
+/* Stats Cards */
+.stat-card {
+    text-align: center;
+    padding: var(--space-lg);
+    transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+}
+
+.stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.card-header h2 {
+    margin: 0;
+}
+
+/* Timeline Chart */
+.timeline-chart {
+    min-height: 300px;
+}
+
+.timeline-item {
+    text-align: center;
+    padding: var(--space-xs);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-sm);
+}
+
+/* Achievement Grid */
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--space-md);
+}
+
+.achievement-badge {
+    text-align: center;
+    padding: var(--space-md);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.achievement-badge:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
+    background: var(--color-bg-elevated);
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-xs);
+}
+
+.achievement-name {
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+/* University Cards */
+.university-card {
+    transition: all var(--transition-base);
+}
+
+.university-card:hover {
+    background: var(--color-bg-elevated) !important;
+    transform: translateX(4px);
+}
+
+.university-card h4 {
+    color: var(--color-text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-info>div {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        margin-bottom: var(--space-md);
+    }
+
+    .stat-card {
+        padding: var(--space-md);
+    }
+
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: var(--font-size-xl);
+    }
+
+    .achievement-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .achievement-icon {
+        font-size: 2rem;
+    }
+}
+
+/* Edit Mode Styles */
+.edit-mode {
+    border: 2px dashed var(--color-accent-primary);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+}
+
+/* Share Modal Enhancements */
+.modal-overlay {
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Timeline SVG Enhancements */
+svg {
+    overflow: visible;
+}
+
+svg polyline {
+    filter: drop-shadow(0 2px 4px rgba(92, 148, 252, 0.3));
+}
+
+svg circle {
+    transition: r 0.2s ease;
+    cursor: pointer;
+}
+
+svg circle:hover {
+    r: 2;
+}
+
+/* Public Profile Badge */
+.public-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-accent-secondary);
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Loading State */
+.loading-skeleton {
+    background: linear-gradient(90deg,
+            var(--color-bg-secondary) 0%,
+            var(--color-bg-elevated) 50%,
+            var(--color-bg-secondary) 100%);
+    background-size: 200% 100%;
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

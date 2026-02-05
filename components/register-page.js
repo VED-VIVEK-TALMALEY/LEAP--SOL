@@ -7,10 +7,10 @@ import { router } from '../js/router.js';
 import { showToast } from '../js/animations.js';
 
 export function createRegisterPage() {
-    const container = document.createElement('div');
-    container.className = 'auth-container';
+  const container = document.createElement('div');
+  container.className = 'auth-container';
 
-    container.innerHTML = `
+  container.innerHTML = `
     <div class="auth-card">
       <div class="auth-header">
         <div class="auth-logo">🎓</div>
@@ -101,59 +101,59 @@ export function createRegisterPage() {
     </div>
   `;
 
-    // Event listeners
-    setTimeout(() => {
-        let selectedCommitment = 15;
-        const form = container.querySelector('#register-form');
-        const registerBtn = container.querySelector('#register-btn');
-        const loginBtn = container.querySelector('#login-link-btn');
+  // Event listeners
+  setTimeout(() => {
+    let selectedCommitment = 15;
+    const form = container.querySelector('#register-form');
+    const registerBtn = container.querySelector('#register-btn');
+    const loginBtn = container.querySelector('#login-link-btn');
 
-        // Commitment selection
-        container.querySelectorAll('.commitment-option').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                container.querySelectorAll('.commitment-option').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                selectedCommitment = parseInt(e.currentTarget.dataset.minutes);
-            });
-        });
+    // Commitment selection
+    container.querySelectorAll('.commitment-option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        container.querySelectorAll('.commitment-option').forEach(b => b.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        selectedCommitment = parseInt(e.currentTarget.dataset.minutes);
+      });
+    });
 
-        // Form submission
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-            const name = container.querySelector('#name').value.trim();
-            const email = container.querySelector('#email').value;
-            const password = container.querySelector('#password').value;
-            const targetScore = parseFloat(container.querySelector('#target-score').value);
+      const name = container.querySelector('#name').value.trim();
+      const email = container.querySelector('#email').value;
+      const password = container.querySelector('#password').value;
+      const targetScore = parseFloat(container.querySelector('#target-score').value);
 
-            if (!name) {
-                showToast('Please enter your name', 'warning');
-                return;
-            }
+      if (!name) {
+        showToast('Please enter your name', 'warning');
+        return;
+      }
 
-            registerBtn.disabled = true;
-            registerBtn.textContent = 'Creating account...';
+      registerBtn.disabled = true;
+      registerBtn.textContent = 'Creating account...';
 
-            const { data, error } = await authService.signUp(email, password, {
-                name,
-                targetScore,
-                dailyCommitment: selectedCommitment
-            });
+      const { data, error } = await authService.signUp(email, password, {
+        name,
+        targetScore,
+        dailyCommitment: selectedCommitment
+      });
 
-            if (error) {
-                showToast(error.message, 'error');
-                registerBtn.disabled = false;
-                registerBtn.textContent = 'Create Account';
-            } else {
-                showToast('Account created! Welcome to LEAP! 🎉', 'success');
-                router.navigate('/');
-            }
-        });
+      if (error) {
+        showToast(error.message, 'error');
+        registerBtn.disabled = false;
+        registerBtn.textContent = 'Create Account';
+      } else {
+        showToast('Account created! Welcome to XLR8! 🚀', 'success');
+        router.navigate('/');
+      }
+    });
 
-        loginBtn?.addEventListener('click', () => {
-            router.navigate('/login');
-        });
-    }, 0);
+    loginBtn?.addEventListener('click', () => {
+      router.navigate('/login');
+    });
+  }, 0);
 
-    return container;
+  return container;
 }

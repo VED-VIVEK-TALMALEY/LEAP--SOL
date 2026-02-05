@@ -1,4 +1,4 @@
-# 🔐 Security Guide for LEAP - Study Abroad OS
+# 🔐 Security Guide for XLR8 - Study Abroad OS
 
 ## ⚠️ CRITICAL: Protecting Your Supabase Keys
 
