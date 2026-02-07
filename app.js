@@ -12,14 +12,7 @@ import { createSwipeMock } from './components/swipe-mock.js';
 import { createMomentumFeed } from './components/momentum-feed.js';
 import { createLoginPage } from './components/login-page.js';
 import { createRegisterPage } from './components/register-page.js';
-import { createCollegeDashboard } from './components/college-dashboard.js';
 import { createProfilePage } from './components/profile-page.js';
-import { createRivalsPage } from './components/rivals-page.js';
-import { createCreatorFeed } from './components/creator-feed.js';
-import { createAlumniConnect } from './components/alumni-connect.js';
-import { createApplicationTracker } from './components/application-tracker.js';
-import { createAcademicProfile } from './components/academic-profile.js';
-import { createCollegeSearch } from './components/college-search.js';
 
 function createOnboarding() {
   const container = document.createElement('div');
@@ -205,10 +198,6 @@ function createPracticePage() {
           <div class="nav-icon">🏆</div>
           <div class="nav-label">League</div>
         </div>
-        <div class="nav-item" data-route="/colleges">
-          <div class="nav-icon">🎓</div>
-          <div class="nav-label">Colleges</div>
-        </div>
         <div class="nav-item" data-route="/profile">
           <div class="nav-icon">👤</div>
           <div class="nav-label">Profile</div>
@@ -271,14 +260,7 @@ function registerRoutes() {
   router.register('/practice', createPracticePage);
   router.register('/feed', createMomentumFeed);
   router.register('/league', createLeaguePage);
-  router.register('/colleges', createCollegeDashboard);
   router.register('/profile', createProfilePage);
-  router.register('/rivals', createRivalsPage);
-  router.register('/creators', createCreatorFeed);
-  router.register('/alumni', createAlumniConnect);
-  router.register('/tracker', createApplicationTracker);
-  router.register('/academic-profile', createAcademicProfile);
-  router.register('/college-search', createCollegeSearch);
 
   router.register('/swipe-mock/2min', () => createSwipeMock('2min'));
   router.register('/swipe-mock/5min', () => createSwipeMock('5min'));
